@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous" />
+    <title>SquirrelBook</title>
+  </head>
+  <body>
+    <!-- nav -->
+    <header>
+      <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">SquirrelBook</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarColor02"
+          aria-controls="navbarColor02"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Friends</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-expanded="false">
+                Mini Games
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Lottery</a>
+                <a class="dropdown-item" href="#">Rock, Paper, Scissors</a>
+              </div>
+            </li>
+          </ul>
+          <form class="form-inline">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search" />
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </nav>
+    </header>
+    <main class="container mt-3">
+      <div class="row">
+        <aside class="col-sm-1">aside</aside>
+        <section
+          class="col-sm-8"
+          style="height: calc(100vh - 200px); overflow-y: scroll">
+        </section>
+        <aisde class="col-sm-3 overflow-hidden">
+          <div>주간 히트 노래</div>
+          <div>
+            <ol>
+              <li>어머니 누구니</li>
+              <li>어머니 누구니</li>
+              <li>어머니 누구니</li>
+              <li>어머니 누구니</li>
+              <li>어머니 누구니</li>
+            </ol>
+          </div>
+          <audio src="" controls autoplay loop></audio>
+        </aisde>
+      </div>
+    </main>
+    <footer class=""></footer>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+  <script src="SquirrelBook.js"></script>
+</html>

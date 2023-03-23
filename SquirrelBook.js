@@ -18,7 +18,23 @@ function init() {
   $('#lottery').on('click', moveLottery)
   $('#rps').on('click', moveRps)
   $('#searchButton').on('click', moveSearch)
+  $('#searchBox').on('keypress', e => {
+    if (e.which == 13) moveSearch()
+  })
   $('.track').on('click', moveSong).css('cursor', 'pointer')
+  startClock()
+}
+function startClock() {
+  const clock = setInterval(() => {
+    const date = new Date()
+    $('#clock').text(
+      date.getHours().toString().padStart(2, '0') +
+        ':' +
+        date.getMinutes().toString().padStart(2, '0') +
+        ':' +
+        date.getSeconds().toString().padStart(2, '0')
+    )
+  }, 1000)
 }
 function moveSong() {
   $('section').html($($(this).children()[0]).clone().css('display', 'initial'))
@@ -52,7 +68,9 @@ function makeSearchResult() {
   $(this.data.contacts).each((i, contact) => {
     // console.log(contact.name)
     if (
-      contact.name.includes($('#searchBox').val()) ||
+      contact.name
+        .toUpperCase()
+        .includes($('#searchBox').val().toUpperCase()) ||
       contact.tel.includes($('#searchBox').val()) ||
       contact.address.includes($('#searchBox').val())
     ) {

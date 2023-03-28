@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous" />
+    <link rel="stylesheet" href="clock.css" />
+    <title>リスブック</title>
+  </head>
+  <body>
+    <!-- nav -->
+    <header>
+      <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+        <a class="home navbar-brand" href="#">リスブック</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarColor02"
+          aria-controls="navbarColor02"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="home nav-link" href="#"
+                >ホーム <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="contacts nav-link" href="#">友達サーチ</a>
+            </li>
+            <li class="nav-item">
+              <a class="friends nav-link" href="#">友達</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-expanded="false">
+                ミニゲーム
+              </a>
+              <div class="dropdown-menu">
+                <a class="lottery dropdown-item" href="#">宝くじ</a>
+                <a class="rps dropdown-item" href="#">じゃんけんゲーム</a>
+                <a class="beg dropdown-item" href="#">物乞い</a>
+              </div>
+            </li>
+          </ul>
+          <div class="form-inline">
+            <!-- clock -->
+            <div id="clock"></div>
+            <div
+              style="
+                font-size: 18px;
+                font-weight: 500;
+                margin-right: 10px;
+                color: white;
+              "
+              id="poket"></div>
+            <input
+              id="searchBox"
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="友達サーチ"
+              aria-label="サーチ" />
+            <button id="searchButton" id="btn btn-outline-light my-2 my-sm-0">
+              検索
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="container mt-3">
+      <div class="row">
+        <section class="col-sm-8">
+          <!-- style="height: calc(100vh - 200px); overflow-y: scroll" -->
+          <!-- carousel -->
+          <div
+            id="carouselExampleFade"
+            class="carousel slide carousel-fade"
+            data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li
+                data-target="#carouselExampleCaptions"
+                data-slide-to="0"
+                class="active"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div
+                style="max-width: 730px; max-height: 480px"
+                class="carousel-item active">
+                <img
+                  style="filter: brightness(80%)"
+                  src="purple.png"
+                  class="contacts d-block w-100"
+                  alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                  <h1>リスブックで友達探し</h1>
+                  <h5>今すく友達を探そう</h5>
+                </div>
+              </div>
+              <div
+                style="max-width: 730px; max-height: 480px"
+                class="carousel-item">
+                <img
+                  style="filter: brightness(80%)"
+                  src="rps.jpg"
+                  class="rps d-block w-100"
+                  alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                  <h1>じゃんけんゲーム</h1>
+                  <h5>AIと勝負しよう</h5>
+                </div>
+              </div>
+              <div
+                style="max-width: 730px; max-height: 480px"
+                class="carousel-item">
+                <img
+                  style="filter: brightness(80%)"
+                  src="lottery.jpg"
+                  class="lottery d-block w-100"
+                  alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                  <h1>宝くじ</h1>
+                  <h5>あなたの幸運を試そう</h5>
+                </div>
+              </div>
+              <div
+                style="max-width: 730px; max-height: 480px"
+                class="carousel-item">
+                <img
+                  style="filter: brightness(80%)"
+                  src="beg.jpg"
+                  class="beg d-block w-100"
+                  alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                  <h1>物乞い</h1>
+                  <h5>2回目の人生を始めよう！</h5>
+                </div>
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-target="#carouselExampleFade"
+              data-slide="prev">
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"></span>
+              <span class="sr-only">前へ</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-target="#carouselExampleFade"
+              data-slide="next">
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"></span>
+              <span class="sr-only">次へ</span>
+            </button>
+          </div>
+          <!-- carousel end -->
+        </section>
+        <aside class="col-sm-4 overflow-hidden">
+          <h4 class="text-center mb-4 mt-3">週間ヒットソング</h4>
+          <div>
+            <ol>
+              <li class="track">
+                <iframe
+                  class="container-fluid"
+                  style="display: none"
+                  width="730"
+                  height="410"
+                  src="https://www.youtube.com/embed/evCrxxtslVU"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+                <img
+                  style="max-width: 50px; max-height: 50px"
+                  class="img-fluid rounded center"
+                  src="https://e.snmc.io/i/600/w/c6870621f636d6fe6cf855977d395078/2390626/arashi-arashi-no_1_%E5%B5%90%E3%81%AF%E5%B5%90%E3%82%92%E5%91%BC%E3%81%B6-arashi-no_1-arashi-wa-arashi-wo-yobu-Cover-Art.jpg" />
+                ARASHI - A･RA･SHI
+              </li>
+              <li class="track">
+                <iframe
+                  class="container-fluid"
+                  style="display: none"
+                  width="730"
+                  height="410"
+                  src="https://www.youtube.com/embed/8etBhO7i7bM"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+                <img
+                  style="max-width: 50px; max-height: 50px"
+                  class="img-fluid rounded"
+                  src="https://upload.wikimedia.org/wikipedia/en/6/64/Arashi_truth-kaze.jpg" />
+                ARASHI - Truth
+              </li>
+              <li class="track">
+                <iframe
+                  class="container-fluid"
+                  style="display: none"
+                  width="730"
+                  height="410"
+                  src="https://www.youtube.com/embed/0lapF4DQPKQ"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+                <img
+                  style="max-width: 50px; max-height: 50px"
+                  class="img-fluid rounded"
+                  src="black_swan.png" />
+                BTS - Black Swan
+              </li>
+              <li class="track">
+                <iframe
+                  class="container-fluid"
+                  style="display: none"
+                  width="730"
+                  height="410"
+                  src="https://www.youtube.com/embed/wMCoQaE0LvQ"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+                <img
+                  style="max-width: 50px; max-height: 50px"
+                  class="img-fluid rounded"
+                  src="https://image.bugsm.co.kr/album/images/500/200958/20095868.jpg" />
+                Lovelyz - 지금, 우리
+              </li>
+              <li class="track">
+                <iframe
+                  class="container-fluid"
+                  style="display: none"
+                  width="730"
+                  height="410"
+                  src="https://www.youtube.com/embed/vDxD4HwEFdY"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+                <img
+                  style="max-width: 50px; max-height: 50px"
+                  class="img-fluid rounded"
+                  src="https://image.bugsm.co.kr/album/images/500/201298/20129863.jpg" />
+                Lovelyz - 종소리
+              </li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <footer class=""></footer>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+  <script src="SquirrelBook.js"></script>
+</html>

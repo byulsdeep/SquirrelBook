@@ -1,5 +1,3 @@
-
-
 let data
 let friendlist = []
 let money = 1000
@@ -20,8 +18,9 @@ function init() {
   $('#friends').on('click', moveFriendlist)
   $('#lottery').on('click', moveLottery)
   $('#rps').on('click', moveRps)
+  $('#beg').on('click', moveBeg)
   $('#searchButton').on('click', moveSearch)
-  $('.poket').html(priceToString(money) + " 원")
+  $('.poket').html(priceToString(money) + ' 원')
   $('#searchBox').on('keypress', e => {
     if (e.which == 13) moveSearch()
   })
@@ -30,7 +29,7 @@ function init() {
 }
 
 function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 function startClock() {
@@ -45,6 +44,104 @@ function startClock() {
     )
   }, 1000)
 }
+
+/* beg */
+function priceToString(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+let setMoney = function (num) {
+  num ? (money += num) : ''
+  $('#money').html(priceToString(money))
+}
+function startBeg() {
+  $('img').css({
+    width: '350px',
+    height: '350px',
+    'background-image': "url('./beg.png')",
+    'background-size': 'cover',
+  })
+  let money = 1000
+  let cycle = 1
+  let input = 0
+
+  let setMoney = function (num) {
+    num ? (money += num) : ''
+    $('#money').html(priceToString(money))
+  }
+  setMoney()
+
+  let cycleBey = setInterval(function () {
+    $('#loc-img').css({
+      width: '350px',
+      height: '350px',
+      'background-image': "url('./beg" + cycle + ".jpg')",
+    })
+    cycle == 3 ? (cycle = 1) : cycle++
+  }, 1000)
+
+  let begging = function (input) {
+    let arr = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 100, 500],
+      [0, 0, 0, 0, 0, 0, 0, 0, 500, 1000, 2000, 3000, 5000],
+      [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        500,
+        1000,
+        10000,
+        50000,
+        'F',
+      ],
+    ]
+    let loc = arr[input - 1][Math.floor(Math.random() * arr[input - 1].length)]
+    console.log(loc)
+    return loc
+  }
+
+  $('.btn').on('click', function () {
+    clearInterval(cycleBey)
+
+    if ($(this).val() != input && $(this).val() == 2) {
+      if (money < 1250) {
+        window.alert('지하철 요금은 1,250원 입니다.')
+        return
+      }
+      window.alert('지하철 요금 : -1,250원')
+      setMoney(-1250)
+    }
+    input = $(this).val()
+
+    let income = begging(input)
+    let result
+    let fail = ''
+    for (let i = 0; i < Math.ceil(Math.random() * 3); i++) fail += '.'
+    income == 'F'
+      ? (window.alert('건달을 만나 모두 빼앗겼습니다'),
+        (income = money * -1),
+        (result = '파산'))
+      : (result = income > 0 ? '구걸 성공' : '실패' + fail)
+    if (input == 3 && income > 0) result = '떨어진' + income + '원 습득!'
+
+    $('#beg-img').css({ 'background-image': "url('./beg.png')" })
+    $('#loc-img').css({ 'background-image': "url('./beg" + input + ".jpg')" })
+
+    $('#result').text(result)
+    $('#income').text(
+      income > 0 ? '+' + priceToString(income) : priceToString(income)
+    )
+    setMoney(income)
+  })
+}
+/* rps */
 function startRps() {
   let cycle = 1
 
@@ -65,7 +162,7 @@ function startRps() {
   let setMoney = function (num) {
     num ? (money += num) : ''
     $('#money').html(priceToString(money))
-    $('.poket').html(priceToString(money) + " 원")
+    $('.poket').html(priceToString(money) + ' 원')
   }
 
   let setRate = function () {
@@ -149,6 +246,10 @@ function moveRps() {
   $('section').html(makeRps())
   startRps()
 }
+function moveBeg() {
+  $('section').html(makeBeg())
+  startBeg()
+}
 function moveHome() {
   $('section').html(makeCarousel())
 }
@@ -224,6 +325,41 @@ function makeSearchResult() {
 }
 function makeLottery() {
   return null
+}
+function makeBeg() {
+  const html = "<div class=\"text-md-center\">\r\n"
+				+ "            <h1 class=\"p-t-1\">구걸하기</h1>\r\n"
+				+ "        </div>\r\n"
+				+ "        <hr>\r\n"
+				+ "        <div class=\"row justify-content-around\">\r\n"
+				+ "            <div class=\"col-sm-6 col-md-4 col-md-offset-2\">\r\n"
+				+ "                <img class=\"img-fluid p-a-1\" id=\"beg-img\" width=\"100%\" height=\"100%\">\r\n"
+				+ "            </div>\r\n"
+				+ "            <div class=\"d-flex flex-column justify-content-around\" style=\"width:100px\">\r\n"
+				+ "                <h2 class=\"fs-3 text-center\" id=\"result\"></h2>\r\n"
+				+ "                <h2 class=\"fs-3 text-center\" id=\"income\"></h2>\r\n"
+				+ "            </div>\r\n"
+				+ "            <div class=\"col-sm-6 col-md-4\">\r\n"
+				+ "                <img class=\"img-fluid p-a-1\" id=\"loc-img\" width=\"100%\" height=\"100%\">\r\n"
+				+ "            </div>\r\n"
+				+ "            <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\r\n"
+				+ "                <div class=\"row btn-group-flex m-b-1 justify-content-center\" id=\"play-btn\">\r\n"
+				+ "                    <button type=\"button\" class=\"btn btn-primary btn-lg btn-choice m-2\" value=\"1\">길거리</button>\r\n"
+				+ "                    <button type=\"button\" class=\"btn btn-primary btn-lg btn-choice m-2\" value=\"2\">지하철</button>\r\n"
+				+ "                    <button type=\"button\" class=\"btn btn-primary btn-lg btn-choice m-2\" value=\"3\">골목길</button>\r\n"
+				+ "                </div>\r\n"
+				+ "            </div>\r\n"
+				+ "            <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\r\n"
+				+ "            </div>\r\n"
+				+ "            <div class=\"col-xs-12 col-md-8 col-md-offset-2\">\r\n"
+				+ "                <div class=\"row btn-group-flex m-b-1 justify-content-center\">\r\n"
+				+ "                    <h2 class=\"w-25 fs-3\">Money</h2>\r\n"
+				+ "                    <h2 class=\"fs-3\" id=\"money\">0</h2>\r\n"
+				+ "                    <h2 class=\"fs-3\">원</h2>\r\n"
+				+ "                </div>\r\n"
+				+ "            </div>\r\n"
+				+ "        </div>"
+        return html;
 }
 function makeRps() {
   const html =

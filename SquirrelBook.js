@@ -259,7 +259,7 @@ function moveContacts() {
   $('section').html(makeContact())
   $('section').css({ height: 'calc(100vh - 200px)', 'overflow-y': 'scroll' })
   $('section').removeClass()
-  $('section').addClass('col-sm-9')
+  $('section').addClass('col-sm-8')
   $('aside').css('display', 'initial')
   // style="height: calc(100vh - 200px); overflow-y: scroll"
 }
@@ -287,14 +287,14 @@ function moveHome() {
   $('section').html(makeCarousel())
   $('section').css({ height: 'initial', 'overflow-y': 'initial' })
   $('section').removeClass()
-  $('section').addClass('col-sm-9')
+  $('section').addClass('col-sm-8')
   $('aside').css('display', 'initial')
 }
 function moveFriendlist() {
   $('section').html(makeFriendlist())
   $('section').css({ height: 'calc(100vh - 200px)', 'overflow-y': 'scroll' })
   $('section').removeClass()
-  $('section').addClass('col-sm-9')
+  $('section').addClass('col-sm-8')
   $('aside').css('display', 'initial')
 }
 function makeSearchResult() {

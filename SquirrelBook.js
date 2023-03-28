@@ -14,11 +14,11 @@ $(() => {
 function init() {
   // $('section').append(makeContact())
   $('#home').on('click', moveHome)
-  $('#contacts').on('click', moveContacts)
-  $('#friends').on('click', moveFriendlist)
-  $('#lottery').on('click', moveLottery)
-  $('#rps').on('click', moveRps)
-  $('#beg').on('click', moveBeg)
+  $('.contacts').on('click', moveContacts)
+  $('.friends').on('click', moveFriendlist)
+  $('.lottery').on('click', moveLottery)
+  $('.rps').on('click', moveRps)
+  $('.beg').on('click', moveBeg)
   $('#searchButton').on('click', moveSearch)
   $('.poket').html(priceToString(money) + ' 원')
   $('#searchBox').on('keypress', e => {

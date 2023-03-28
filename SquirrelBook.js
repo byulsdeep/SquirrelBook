@@ -289,6 +289,10 @@ function moveHome() {
   $('section').removeClass()
   $('section').addClass('col-sm-8')
   $('aside').css('display', 'initial')
+  $('.contacts').on('click', moveContacts)
+  $('.lottery').on('click', moveLottery)
+  $('.rps').on('click', moveRps)
+  $('.beg').on('click', moveBeg)
 }
 function moveFriendlist() {
   $('section').html(makeFriendlist())

@@ -2,6 +2,7 @@
 
 let data
 let friendlist = []
+let money = 1000
 $(() => {
   $.ajax({
     url: 'https://sample.bmaster.kro.kr/contacts',
@@ -20,12 +21,18 @@ function init() {
   $('#lottery').on('click', moveLottery)
   $('#rps').on('click', moveRps)
   $('#searchButton').on('click', moveSearch)
+  $('.poket').html(priceToString(money) + " 원")
   $('#searchBox').on('keypress', e => {
     if (e.which == 13) moveSearch()
   })
   $('.track').on('click', moveSong).css('cursor', 'pointer')
   startClock()
 }
+
+function priceToString(price) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 function startClock() {
   const clock = setInterval(() => {
     const date = new Date()
@@ -39,7 +46,6 @@ function startClock() {
   }, 1000)
 }
 function startRps() {
-  let money = 1000
   let cycle = 1
 
   let cycleRsp = setInterval(function () {
@@ -58,7 +64,8 @@ function startRps() {
 
   let setMoney = function (num) {
     num ? (money += num) : ''
-    $('#money').html(money)
+    $('#money').html(priceToString(money))
+    $('.poket').html(priceToString(money) + " 원")
   }
 
   let setRate = function () {
@@ -281,14 +288,14 @@ function makeRps() {
     '            <h2 class="fs-3">\r\n' +
     '              <input type="text" class="form-control wd-25" id="batting" />\r\n' +
     '            </h2>\r\n' +
-    '            <h2 class="fs-3 mx-2">$</h2>\r\n' +
+    '            <h2 class="fs-3 mx-2">원</h2>\r\n' +
     '          </div>\r\n' +
     '        </div>\r\n' +
     '        <div class="col-xs-12 col-md-8 col-md-offset-2">\r\n' +
     '          <div class="row btn-group-flex m-b-1 justify-content-center">\r\n' +
     '            <h2 class="w-25 fs-3">Money</h2>\r\n' +
     '            <h2 class="fs-3" id="money">0</h2>\r\n' +
-    '            <h2 class="fs-3">$</h2>\r\n' +
+    '            <h2 class="fs-3">원</h2>\r\n' +
     '          </div>\r\n' +
     '        </div>\r\n' +
     '      </div>'

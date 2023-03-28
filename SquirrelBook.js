@@ -28,10 +28,6 @@ function init() {
   startClock()
 }
 
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
-
 let setMoney = function (num) {
   num ? (money += num) : ''
   $('#money').html(priceToString(money))
@@ -840,7 +836,31 @@ function creatLotto() {
       }
     }
   }
-  displayLotto(lotto)
+  let bonus = lotto[6]
+  lotto.pop()
+  lotto.sort(function (a, b) {
+    return a - b
+  })
+  $('#lotto').html('')
+  lotto.map(function (e, i) {
+    $('#lotto').append(
+      "<div style='width:125px; height:125px; font-size:50px; color:white; text-align:center; line-height:120px; border-radius:50%; background:" +
+        getColor(e) +
+        "' id='lotto-" +
+        i +
+        "'>" +
+        e +
+        '</div>'
+    )
+  })
+  $('#lotto').append("<div style='font-size:50px; line-height: 115px;'>+</div>")
+  $('#lotto').append(
+    "<div style='width:125px; height:125px; font-size:50px; color:white; text-align:center; line-height:120px; border-radius:50%; background:" +
+      getColor(bonus) +
+      "' id='lotto-6'>" +
+      bonus +
+      '</div>'
+  )
 }
 
 //랜덤 번호와 당첨결과 비교
@@ -848,12 +868,12 @@ function resultLotto() {
   var match = 0
   var bonus = false
   for (var i = 0; i < 7; i++) {
-    if (i > 0) {
+    if (i < 7) {
       for (var j = 1; j <= i; j++) {
-        match += $('.win-' + i).text() == $('.result-' + j).text() ? 1 : 0
+        match += $('#win-' + i).text() == $('#lotto-' + j).text() ? 1 : 0
       }
     } else {
-      bonus = $('.win-' + i).text() == $('.result-' + i).text() ? true : false
+      bonus = $('#win-' + i).text() == $('#lotto-' + i).text() ? true : false
     }
   }
   if (match < 3) return -1
@@ -886,7 +906,7 @@ function startLottery() {
       let winArr = data.numbers
       winArr.push(data.bonus_no)
       console.log(winArr)
-      $("#win").html('');
+      $('#win').html('')
       $('#win-title').text(data.draw_no + '회차 당첨 결과')
       winArr.map(function (e, i) {
         $('#win').append(
@@ -947,84 +967,45 @@ function startLottery() {
     setMoney(money)
   })
 }
-// 번호에 따라 다른 색깔 반환
-function getColor(number) {
-  let color = 'rgb(251, 196, 0)' // 10 미만
-  if (number >= 10 && number < 20) {
-    color = 'rgb(105, 200, 242)'
-  } else if (number >= 20 && number < 30) {
-    color = 'rgb(255, 114, 114)'
-  } else if (number >= 30 && number < 40) {
-    color = 'rgb(170, 170, 170)'
-  } else if (number >= 40 && number < 50) {
-    color = 'rgb(176, 216, 64)'
-  }
-  return color
-}
-
-function creatLotto() {
-  var lotto = new Array(7)
-  for (var i = 0; i < lotto.length; i++) {
-    lotto[i] = Math.ceil(Math.random() * 45)
-    for (var j = 0; j < i; j++) {
-      if (lotto[i] == lotto[j]) {
-        i--
-      }
-    }
-  }
-  let bonus = lotto[6]
-  lotto.pop()
-  lotto.sort(function (a, b) {
-    return a - b
-  })
-  $('#lotto').html('')
-  lotto.map(function (e, i) {
-    $('#lotto').append(
-      "<div style='width:125px; height:125px; font-size:50px; color:white; text-align:center; line-height:120px; border-radius:50%; background:" +
-        getColor(e) +
-        "' id='lotto-" +
-        i +
-        "'>" +
-        e +
-        '</div>'
-    )
-  })
-  $('#lotto').append("<div style='font-size:50px; line-height: 115px;'>+</div>")
-  $('#lotto').append(
-    "<div style='width:125px; height:125px; font-size:50px; color:white; text-align:center; line-height:120px; border-radius:50%; background:" +
-      getColor(bonus) +
-      "' id='lotto-6'>" +
-      bonus +
-      '</div>'
-  )
-}
-
-//랜덤 번호와 당첨결과 비교
-function resultLotto() {
-  var match = 0
-  var bonus = false
-  for (var i = 0; i < 7; i++) {
-    if (i < 7) {
-      for (var j = 1; j <= i; j++) {
-        match += $('#win-' + i).text() == $('#lotto-' + j).text() ? 1 : 0
-      }
-    } else {
-      bonus = $('#win-' + i).text() == $('#lotto-' + i).text() ? true : false
-    }
-  }
-  if (match < 3) return -1
-  if (match == 3) return 4
-  if (match == 4) return 3
-  if (match == 5) return 2
-  if (match == 5 && bonus) return 1
-  if (match == 6) return 0
-}
 
 // function setMoney(money) {
 //   $('#money').text(priceToString(money) + '원')
 // }
 
-// 원 단위 표시
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
+// 버튼을 눌렀을 때 번호가 추첨되도록 이벤트 등록
+$('.btn-lotto').click(function () {
+  var result
+  if ($(this).val() > 0) {
+    var cnt = 0
+    while (true) {
+      creatLotto()
+      result = resultLotto()
+      cnt++
+      if (result == $(this).val()) {
+        console.log(cnt)
+        break
+      }
+    }
+    money -= 1000 * cnt
+  } else {
+    creatLotto()
+    result = resultLotto()
+    money -= 1000
+  }
+
+  var prize
+  if (result > 0) {
+    prize =
+      "<p style='margin:0'>" +
+      (result + 1) +
+      "등</p><p style='margin:0'>" +
+      priceToString(divisions[result].prize) +
+      "ウオン</p><p style='margin:0'>" +
+      ' 당첨자 수 : ' +
+      divisions[result].winners++ +
+      ' 명</p>'
+    money += divisions[result].prize
+  } else prize = '낙첨'
+  $('#prize').html(prize)
+  setMoney(money)
+})

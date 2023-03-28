@@ -20,14 +20,13 @@ function init() {
   $('.rps').on('click', moveRps)
   $('.beg').on('click', moveBeg)
   $('#searchButton').on('click', moveSearch)
-  $('#poket').html(priceToString(money) + ' 원')
+  $('#pocket').html(priceToString(money) + ' 원')
   $('#searchBox').on('keypress', e => {
     if (e.which == 13) moveSearch()
   })
   $('.track').on('click', moveSong).css('cursor', 'pointer')
   startClock()
 }
-
 function priceToString(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
@@ -35,7 +34,7 @@ function priceToString(price) {
 let setMoney = function (num) {
   num ? (money += num) : ''
   $('#money').html(priceToString(money))
-  $('#poket').html(priceToString(money) + ' 원')
+  $('#pocket').html(priceToString(money) + ' 원')
 }
 
 function startClock() {
@@ -122,6 +121,7 @@ function startBeg() {
     if ($(this).val() != input && $(this).val() == 2) {
       if (money < 1250) {
         window.alert('지하철 요금은 1,250원 입니다.')
+        $('#loc-img').css({ 'background-image': "url('./beg_sub.jpg')" })
         return
       }
       window.alert('지하철 요금 : -1,250원')
@@ -132,14 +132,20 @@ function startBeg() {
     let income = begging(input)
     let result
     let fail = ''
+
+    $('#beg-img').css({ 'background-image': "url('./beg.png')" })
+    $('#loc-img').css({ 'background-image': "url('./beg" + input + ".jpg')" })
+
     for (let i = 0; i < Math.ceil(Math.random() * 3); i++) fail += '.'
     if (income == 'F') {
       if (money < 0) {
         window.alert('건달이 허탕을 칩니다.')
+        $('#loc-img').css({ 'background-image': "url('./beg_sp2.jpg')" })
         income = 0
         result = 'NICE!'
       } else {
         window.alert('건달을 만나 모두 빼앗겼습니다')
+        $('#loc-img').css({ 'background-image': "url('./beg_sp1.jpg')" })
         income = money * -1
         result = '파산'
       }
@@ -147,9 +153,6 @@ function startBeg() {
       result = income > 0 ? '구걸 성공' : '실패' + fail
     }
     if (input == 3 && income > 0) result = '떨어진' + income + '원 습득!'
-
-    $('#beg-img').css({ 'background-image': "url('./beg.png')" })
-    $('#loc-img').css({ 'background-image': "url('./beg" + input + ".jpg')" })
 
     $('#result').text(result)
     $('#income').text(
@@ -179,7 +182,7 @@ function startRps() {
   let setMoney = function (num) {
     num ? (money += num) : ''
     $('#money').html(priceToString(money))
-    $('#poket').html(priceToString(money) + ' 원')
+    $('#pocket').html(priceToString(money) + ' 원')
   }
 
   let setRate = function () {
@@ -488,7 +491,7 @@ function makeBeg() {
 function makeRps() {
   const html =
     '<div class="text-md-center">\r\n' +
-    '        <h1 class="p-t-1">Rock, Paper, Sicssors</h1>\r\n' +
+    '        <h1 class="p-t-1">Rock, Paper, Scissors</h1>\r\n' +
     '      </div>\r\n' +
     '      <hr />\r\n' +
     '      <div class="row justify-content-around">\r\n' +
@@ -763,115 +766,6 @@ function makeContact() {
   })
   return table
 }
-/* lottery */
-// 번호에 따라 다른 색깔 반환
-function getColor(number) {
-  let color = 'rgb(251, 196, 0)' // 10 미만
-  if (number >= 10 && number < 20) {
-    color = 'rgb(105, 200, 242)'
-  } else if (number >= 20 && number < 30) {
-    color = 'rgb(255, 114, 114)'
-  } else if (number >= 30 && number < 40) {
-    color = 'rgb(170, 170, 170)'
-  } else if (number >= 40 && number < 50) {
-    color = 'rgb(176, 216, 64)'
-  }
-  return color
-}
-
-//랜덤번호생성 화면 표시
-function displayLotto(lotto) {
-  $('.result').empty()
-  $('.bonus').empty()
-  for (var i = 0; i < 7; i++) {
-    if (i == 0) {
-      var div = $("<div class='result-" + i + "'></div>")
-        .text(lotto[0])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.bonus').append(div)
-      lotto[0] = 0
-    } else {
-      lotto.sort((a, b) => {
-        return a - b
-      })
-      var div = $("<div class='result-" + i + "'></div>")
-        .text(lotto[i])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.result').append(div)
-    }
-  }
-  $('.result > div').fadeIn(0)
-  $('.bonus > div').fadeIn(0)
-}
-
-//당첨결과 화면 표시
-function displayWin(lotto) {
-  $('.win').empty()
-  $('.win-bonus').empty()
-  for (var i = 0; i < 7; i++) {
-    if (i == 0) {
-      var div = $("<div class='win-" + i + "'></div>")
-        .text(lotto[0])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.win_bonus').append(div)
-      lotto[0] = 0
-    } else {
-      var div = $("<div class='win-" + i + "'></div>")
-        .text(lotto[i])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.win').append(div)
-    }
-  }
-  $('.win > div').fadeIn(0)
-  $('.win_bonus > div').fadeIn(0)
-}
-
-function creatLotto() {
-  var lotto = new Array(7)
-  for (var i = 0; i < lotto.length; i++) {
-    lotto[i] = Math.ceil(Math.random() * 45)
-    for (var j = 0; j < i; j++) {
-      if (lotto[i] == lotto[j]) {
-        i--
-      }
-    }
-  }
-  displayLotto(lotto)
-}
-
-//랜덤 번호와 당첨결과 비교
-function resultLotto() {
-  var match = 0
-  var bonus = false
-  for (var i = 0; i < 7; i++) {
-    if (i > 0) {
-      for (var j = 1; j <= i; j++) {
-        match += $('.win-' + i).text() == $('.result-' + j).text() ? 1 : 0
-      }
-    } else {
-      bonus = $('.win-' + i).text() == $('.result-' + i).text() ? true : false
-    }
-  }
-  if (match < 3) return -1
-  if (match == 3) return 4
-  if (match == 4) return 3
-  if (match == 5) return 2
-  if (match == 5 && bonus) return 1
-  if (match == 6) return 0
-}
-
-// function setMoney(money) {
-//   $('.money').text(priceToString(money) + '원')
-// }
-
-// 원 단위 표시
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
 
 /* lottery */
 function startLottery() {
@@ -885,8 +779,7 @@ function startLottery() {
     success: function (data) {
       let winArr = data.numbers
       winArr.push(data.bonus_no)
-      console.log(winArr)
-      $("#win").html('');
+      $('#win').html('')
       $('#win-title').text(data.draw_no + '회차 당첨 결과')
       winArr.map(function (e, i) {
         $('#win').append(
@@ -924,14 +817,13 @@ function startLottery() {
       }
       money -= 1000 * cnt
     } else {
-      console.log('추첨')
       creatLotto()
       result = resultLotto()
       money -= 1000
     }
 
     var prize
-    if (result > 0) {
+    if (result >= 0) {
       prize =
         "<p style='margin:0'>" +
         (result + 1) +
@@ -944,7 +836,7 @@ function startLottery() {
       money += divisions[result].prize
     } else prize = '낙첨'
     $('#prize').html(prize)
-    setMoney(money)
+    setMoney()
   })
 }
 // 번호에 따라 다른 색깔 반환
@@ -1018,13 +910,4 @@ function resultLotto() {
   if (match == 5) return 2
   if (match == 5 && bonus) return 1
   if (match == 6) return 0
-}
-
-// function setMoney(money) {
-//   $('#money').text(priceToString(money) + '원')
-// }
-
-// 원 단위 표시
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }

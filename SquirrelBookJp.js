@@ -20,14 +20,13 @@ function init() {
   $('.rps').on('click', moveRps)
   $('.beg').on('click', moveBeg)
   $('#searchButton').on('click', moveSearch)
-  $('#poket').html(priceToString(money) + ' ウォン')
+  $('#pocket').html(priceToString(money) + ' ウォン')
   $('#searchBox').on('keypress', e => {
     if (e.which == 13) moveSearch()
   })
   $('.track').on('click', moveSong).css('cursor', 'pointer')
   startClock()
 }
-
 function priceToString(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
@@ -35,7 +34,7 @@ function priceToString(price) {
 let setMoney = function (num) {
   num ? (money += num) : ''
   $('#money').html(priceToString(money))
-  $('#poket').html(priceToString(money) + ' ウォン')
+  $('#pocket').html(priceToString(money) + ' ウォン')
 }
 
 function startClock() {
@@ -122,6 +121,7 @@ function startBeg() {
     if ($(this).val() != input && $(this).val() == 2) {
       if (money < 1250) {
         window.alert('電車料金は1,250ウォンです。')
+        $('#loc-img').css({ 'background-image': "url('./beg_sub.jpg')" })
         return
       }
       window.alert('電車料金 : -1,250ウォン')
@@ -132,14 +132,20 @@ function startBeg() {
     let income = begging(input)
     let result
     let fail = ''
+
+    $('#beg-img').css({ 'background-image': "url('./beg.png')" })
+    $('#loc-img').css({ 'background-image': "url('./beg" + input + ".jpg')" })
+
     for (let i = 0; i < Math.ceil(Math.random() * 3); i++) fail += '.'
     if (income == 'F') {
       if (money < 0) {
         window.alert('ごろつきは無駄骨に終わりました。')
+        $('#loc-img').css({ 'background-image': "url('./beg_sp2.jpg')" })
         income = 0
         result = 'NICE!'
       } else {
         window.alert('ごろつきに全部盗られました。')
+        $('#loc-img').css({ 'background-image': "url('./beg_sp1.jpg')" })
         income = money * -1
         result = '破産'
       }
@@ -147,9 +153,6 @@ function startBeg() {
       result = income > 0 ? '物乞い成功' : '失敗' + fail
     }
     if (input == 3 && income > 0) result = '落ちた' + income + 'ウォン ゲット!'
-
-    $('#beg-img').css({ 'background-image': "url('./beg.png')" })
-    $('#loc-img').css({ 'background-image': "url('./beg" + input + ".jpg')" })
 
     $('#result').text(result)
     $('#income').text(
@@ -179,7 +182,7 @@ function startRps() {
   let setMoney = function (num) {
     num ? (money += num) : ''
     $('#money').html(priceToString(money))
-    $('#poket').html(priceToString(money) + ' ウォン')
+    $('#pocket').html(priceToString(money) + ' ウォン')
   }
 
   let setRate = function () {
@@ -264,7 +267,11 @@ function moveContacts() {
   // style="height: calc(100vh - 200px); overflow-y: scroll"
 }
 function moveLottery() {
-  $('body').html(makeLottery())
+  $('section').html(makeLottery())
+  $('section').css({ height: 'initial', 'overflow-y': 'initial' })
+  $('section').removeClass()
+  $('section').addClass('col-sm')
+  $('aside').css('display', 'none')
   startLottery()
 }
 function moveRps() {
@@ -369,62 +376,81 @@ function makeSearchResult() {
   return table
 }
 function makeLottery() {
-  const html =
-    // danbisan css
-    '<link rel="stylesheet" href="./styles.css" />' +
-    // bootstrap
-    '    <link\r\n' +
-    '      rel="stylesheet"\r\n' +
-    '      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"\r\n' +
-    '      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"\r\n' +
-    '      crossorigin="anonymous" />' +
-    '<div id="wrap">\r\n' +
-    "      <header><h1>宝くじ推選</h1><h1 class='money'>0</h1></header>\r\n" +
+  return (
+    '    <div class="container">\r\n' +
+    '      <div class="text-md-center">\r\n' +
+    '        <h1 class="p-t-1">Lotto</h1>\r\n' +
+    '      </div>\r\n' +
     '      <hr />\r\n' +
-    '      <nav>\r\n' +
-    '        <ul>\r\n' +
-    '          <li>\r\n' +
-    '            <a\r\n' +
-    '              href="https://dhlottery.co.kr/gameInfo.do?method=buyLotto&wiselog=C_A_1_3"\r\n' +
-    '              >宝くじ購入</a\r\n' +
-    '            >\r\n' +
-    '          </li>\r\n' +
-    '          <li><a href="#">宝くじ商品のご案内</a></li>\r\n' +
-    '          <li>\r\n' +
-    '            <a\r\n' +
-    '              href="https://dhlottery.co.kr/gameResult.do?method=byWin&wiselog=C_A_1_1"\r\n' +
-    '              >当選結果</a\r\n' +
-    '            >\r\n' +
-    '          </li>\r\n' +
-    '          <li><a href="#">宝くじ売り場</a></li>\r\n' +
-    '          <li><a href="#">イベント</a></li>\r\n' +
-    '        </ul>\r\n' +
-    '      </nav>\r\n' +
-    '      <main>\r\n' +
-    '        <article>\r\n' +
-    '          <h4 id="drownum"></h4>\r\n' +
-    '          <div class="win"></div>\r\n' +
-    '          <span class="plus">+</span>\r\n' +
-    '          <div class="win_bonus"></div>\r\n' +
-    '        </article>\r\n' +
-    '        <aside>\r\n' +
-    '          <h4>ランダム番号生成</h4>\r\n' +
-    '          <div class="result"></div>\r\n' +
-    '          <span class="plus">+</span>\r\n' +
-    '          <div class="bonus"></div>\r\n' +
-    '        </aside>\r\n' +
-    '        <div class="btn_wrap">\r\n' +
-    '          <button class="ran">推選</button>\r\n' +
-    '          <button class="test" value="4">5등</button>\r\n' +
-    '          <button class="test" value="3">4등</button>\r\n' +
-    '          <button class="test" value="2">3등</button>\r\n' +
-    '          <button class="test" value="1">2등</button>\r\n' +
-    '          <button class="test" value="0">1등</button>\r\n' +
+    '      <div class="row justify-content-evenly flex-column">\r\n' +
+    '        <h2 id="win-title" class="mb-4"></h2>\r\n' +
+    '        <div style="height: 125px">\r\n' +
+    '          <div\r\n' +
+    '            class="d-flex justify-content-around"\r\n' +
+    '            id="win"\r\n' +
+    '            style="width: 100%"></div>\r\n' +
     '        </div>\r\n' +
-    '        <h4 class="prize">わくわく</h4>\r\n' +
-    '      </main>\r\n' +
+    '        <div\r\n' +
+    '          class="d-flex flex-column justify-content-around"\r\n' +
+    '          style="height: 100px">\r\n' +
+    '          <h2\r\n' +
+    '            class="fs-3 text-center d-flex justify-content-around"\r\n' +
+    '            id="prize"></h2>\r\n' +
+    '        </div>\r\n' +
+    '        <div style="height: 125px">\r\n' +
+    '          <div\r\n' +
+    '            class="d-flex justify-content-around"\r\n' +
+    '            id="lotto"\r\n' +
+    '            style="width: 100%"></div>\r\n' +
+    '        </div>\r\n' +
+    '        <div class="d-flex justify-content-center mt-4 mb-4">\r\n' +
+    '          <button\r\n' +
+    '            type="button"\r\n' +
+    '            class="btn btn-primary btn-lg btn-choice m-2 btn-lotto"\r\n' +
+    '            value="-1">\r\n' +
+    '            宝くじ推選\r\n' +
+    '          </button>\r\n' +
+    '          <button\r\n' +
+    '            type="button"\r\n' +
+    '            class="btn btn-primary btn-lg btn-choice m-2 btn-lotto"\r\n' +
+    '            value="4">\r\n' +
+    '            5等\r\n' +
+    '          </button>\r\n' +
+    '          <button\r\n' +
+    '            type="button"\r\n' +
+    '            class="btn btn-primary btn-lg btn-choice m-2 btn-lotto"\r\n' +
+    '            value="3">\r\n' +
+    '            4等\r\n' +
+    '          </button>\r\n' +
+    '          <button\r\n' +
+    '            type="button"\r\n' +
+    '            class="btn btn-primary btn-lg btn-choice m-2 btn-lotto"\r\n' +
+    '            value="2">\r\n' +
+    '            3等\r\n' +
+    '          </button>\r\n' +
+    '          <button\r\n' +
+    '            type="button"\r\n' +
+    '            class="btn btn-primary btn-lg btn-choice m-2 btn-lotto"\r\n' +
+    '            value="1">\r\n' +
+    '            2等\r\n' +
+    '          </button>\r\n' +
+    '          <button\r\n' +
+    '            type="button"\r\n' +
+    '            class="btn btn-primary btn-lg btn-choice m-2 btn-lotto"\r\n' +
+    '            value="0">\r\n' +
+    '            1等\r\n' +
+    '          </button>\r\n' +
+    '        </div>\r\n' +
+    '        <div>\r\n' +
+    '          <div class="row btn-group-flex m-b-1 justify-content-center">\r\n' +
+    '            <h2 class="w-25 fs-3">Money</h2>\r\n' +
+    '            <h2 class="fs-3" id="money">0</h2>\r\n' +
+    '            <h2 class="fs-3"></h2>\r\n' +
+    '          </div>\r\n' +
+    '        </div>\r\n' +
+    '      </div>\r\n' +
     '    </div>'
-  return html
+  )
 }
 function makeBeg() {
   const html =
@@ -436,7 +462,7 @@ function makeBeg() {
     '            <div class="col-sm-6 col-md-4 col-md-offset-2">\r\n' +
     '                <img class="img-fluid p-a-1" id="beg-img" width="100%" height="100%">\r\n' +
     '            </div>\r\n' +
-    '            <div class="d-flex flex-column justify-content-around" style="width:100px">\r\n' +
+    '            <div class="d-flex flex-column justify-content-around">\r\n' +
     '                <h2 class="fs-3 text-center" id="result"></h2>\r\n' +
     '                <h2 class="fs-3 text-center" id="income"></h2>\r\n' +
     '            </div>\r\n' +
@@ -602,7 +628,7 @@ function makeCarousel() {
     '                  class="beg d-block w-100"\r\n' +
     '                  alt="..." />\r\n' +
     '                <div class="carousel-caption d-none d-md-block">\r\n' +
-    '                  <h1>物乞い</h1>\r\n' +
+    '                  <h1>구걸</h1>\r\n' +
     '                  <h5>2回目の人生を始めよう！</h5>\r\n' +
     '                </div>\r\n' +
     '              </div>\r\n' +
@@ -740,120 +766,11 @@ function makeContact() {
   })
   return table
 }
+
 /* lottery */
-// 번호에 따라 다른 색깔 반환
-function getColor(number) {
-  let color = 'rgb(251, 196, 0)' // 10 미만
-  if (number >= 10 && number < 20) {
-    color = 'rgb(105, 200, 242)'
-  } else if (number >= 20 && number < 30) {
-    color = 'rgb(255, 114, 114)'
-  } else if (number >= 30 && number < 40) {
-    color = 'rgb(170, 170, 170)'
-  } else if (number >= 40 && number < 50) {
-    color = 'rgb(176, 216, 64)'
-  }
-  return color
-}
-
-//랜덤번호생성 화면 표시
-function displayLotto(lotto) {
-  $('.result').empty()
-  $('.bonus').empty()
-  for (var i = 0; i < 7; i++) {
-    if (i == 0) {
-      var div = $("<div class='result-" + i + "'></div>")
-        .text(lotto[0])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.bonus').append(div)
-      lotto[0] = 0
-    } else {
-      lotto.sort((a, b) => {
-        return a - b
-      })
-      var div = $("<div class='result-" + i + "'></div>")
-        .text(lotto[i])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.result').append(div)
-    }
-  }
-  $('.result > div').fadeIn(0)
-  $('.bonus > div').fadeIn(0)
-}
-
-//당첨결과 화면 표시
-function displayWin(lotto) {
-  $('.win').empty()
-  $('.win-bonus').empty()
-  for (var i = 0; i < 7; i++) {
-    if (i == 0) {
-      var div = $("<div class='win-" + i + "'></div>")
-        .text(lotto[0])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.win_bonus').append(div)
-      lotto[0] = 0
-    } else {
-      var div = $("<div class='win-" + i + "'></div>")
-        .text(lotto[i])
-        .hide()
-        .css('background-color', getColor(lotto[i]))
-      $('.win').append(div)
-    }
-  }
-  $('.win > div').fadeIn(0)
-  $('.win_bonus > div').fadeIn(0)
-}
-
-function creatLotto() {
-  var lotto = new Array(7)
-  for (var i = 0; i < lotto.length; i++) {
-    lotto[i] = Math.ceil(Math.random() * 45)
-    for (var j = 0; j < i; j++) {
-      if (lotto[i] == lotto[j]) {
-        i--
-      }
-    }
-  }
-  displayLotto(lotto)
-}
-
-//랜덤 번호와 당첨결과 비교
-function resultLotto() {
-  var match = 0
-  var bonus = false
-  for (var i = 0; i < 7; i++) {
-    if (i > 0) {
-      for (var j = 1; j <= i; j++) {
-        match += $('.win-' + i).text() == $('.result-' + j).text() ? 1 : 0
-      }
-    } else {
-      bonus = $('.win-' + i).text() == $('.result-' + i).text() ? true : false
-    }
-  }
-  if (match < 3) return -1
-  if (match == 3) return 4
-  if (match == 4) return 3
-  if (match == 5) return 2
-  if (match == 5 && bonus) return 1
-  if (match == 6) return 0
-}
-
-// function setMoney(money) {
-//   $('.money').text(priceToString(money) + '원')
-// }
-
-// 원 단위 표시
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
-
 function startLottery() {
   var divisions
-  var money = 100000
-  setMoney(money)
+  setMoney()
 
   $.ajax({
     type: 'get',
@@ -861,15 +778,31 @@ function startLottery() {
     dataType: 'json',
     success: function (data) {
       let winArr = data.numbers
-      winArr.unshift(data.bonus_no)
-      $('#drownum').text('第' + data.draw_no + '回 当選結果')
-      $('.win').append(displayWin(winArr))
+      winArr.push(data.bonus_no)
+      $('#win').html('')
+      $('#win-title').text(data.draw_no + '回 当選結果')
+      winArr.map(function (e, i) {
+        $('#win').append(
+          "<div style='width:125px; height:125px; font-size:50px; color:white; text-align:center; line-height:120px; border-radius:50%; background:" +
+            getColor(e) +
+            "' id='win-" +
+            i +
+            "'>" +
+            e +
+            '</div>'
+        )
+        if (i == 5) {
+          $('#win').append(
+            "<div style='font-size:50px; line-height: 115px;'>+</div>"
+          )
+        }
+      })
       divisions = data.divisions
     },
   })
 
   // 버튼을 눌렀을 때 번호가 추첨되도록 이벤트 등록
-  $('button').click(function () {
+  $('.btn-lotto').click(function () {
     var result
     if ($(this).val() > 0) {
       var cnt = 0
@@ -890,19 +823,91 @@ function startLottery() {
     }
 
     var prize
-    if (result > 0) {
+    if (result >= 0) {
       prize =
-        '<p>' +
+        "<p style='margin:0'>" +
         (result + 1) +
-        '等</p><p>' +
+        "等</p><p style='margin:0'>" +
         priceToString(divisions[result].prize) +
-        'ウォン</p><p>' +
+        "ウォン</p><p style='margin:0'>" +
         ' 組 : ' +
         divisions[result].winners++ +
         ' 名</p>'
       money += divisions[result].prize
     } else prize = 'はずれ'
-    $('.prize').html(prize)
-    setMoney(money)
+    $('#prize').html(prize)
+    setMoney()
   })
+}
+// 번호에 따라 다른 색깔 반환
+function getColor(number) {
+  let color = 'rgb(251, 196, 0)' // 10 미만
+  if (number >= 10 && number < 20) {
+    color = 'rgb(105, 200, 242)'
+  } else if (number >= 20 && number < 30) {
+    color = 'rgb(255, 114, 114)'
+  } else if (number >= 30 && number < 40) {
+    color = 'rgb(170, 170, 170)'
+  } else if (number >= 40 && number < 50) {
+    color = 'rgb(176, 216, 64)'
+  }
+  return color
+}
+
+function creatLotto() {
+  var lotto = new Array(7)
+  for (var i = 0; i < lotto.length; i++) {
+    lotto[i] = Math.ceil(Math.random() * 45)
+    for (var j = 0; j < i; j++) {
+      if (lotto[i] == lotto[j]) {
+        i--
+      }
+    }
+  }
+  let bonus = lotto[6]
+  lotto.pop()
+  lotto.sort(function (a, b) {
+    return a - b
+  })
+  $('#lotto').html('')
+  lotto.map(function (e, i) {
+    $('#lotto').append(
+      "<div style='width:125px; height:125px; font-size:50px; color:white; text-align:center; line-height:120px; border-radius:50%; background:" +
+        getColor(e) +
+        "' id='lotto-" +
+        i +
+        "'>" +
+        e +
+        '</div>'
+    )
+  })
+  $('#lotto').append("<div style='font-size:50px; line-height: 115px;'>+</div>")
+  $('#lotto').append(
+    "<div style='width:125px; height:125px; font-size:50px; color:white; text-align:center; line-height:120px; border-radius:50%; background:" +
+      getColor(bonus) +
+      "' id='lotto-6'>" +
+      bonus +
+      '</div>'
+  )
+}
+
+//랜덤 번호와 당첨결과 비교
+function resultLotto() {
+  var match = 0
+  var bonus = false
+  for (var i = 0; i < 7; i++) {
+    if (i < 7) {
+      for (var j = 1; j <= i; j++) {
+        match += $('#win-' + i).text() == $('#lotto-' + j).text() ? 1 : 0
+      }
+    } else {
+      bonus = $('#win-' + i).text() == $('#lotto-' + i).text() ? true : false
+    }
+  }
+  if (match < 3) return -1
+  if (match == 3) return 4
+  if (match == 4) return 3
+  if (match == 5) return 2
+  if (match == 5 && bonus) return 1
+  if (match == 6) return 0
 }

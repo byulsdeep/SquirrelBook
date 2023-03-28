@@ -20,7 +20,7 @@ function init() {
   $('.rps').on('click', moveRps)
   $('.beg').on('click', moveBeg)
   $('#searchButton').on('click', moveSearch)
-  $('.poket').html(priceToString(money) + ' 원')
+  $('#poket').html(priceToString(money) + ' 원')
   $('#searchBox').on('keypress', e => {
     if (e.which == 13) moveSearch()
   })
@@ -31,6 +31,13 @@ function init() {
 function priceToString(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
+
+let setMoney = function (num) {
+  num ? (money += num) : ''
+  $('#money').html(priceToString(money))
+  $('#poket').html(priceToString(money) + ' 원')
+}
+
 
 function startClock() {
   const clock = setInterval(() => {
@@ -46,14 +53,7 @@ function startClock() {
 }
 
 /* beg */
-function priceToString(price) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
 
-let setMoney = function (num) {
-  num ? (money += num) : ''
-  $('#money').html(priceToString(money))
-}
 function startBeg() {
   $('img').css({
     width: '350px',
@@ -61,14 +61,8 @@ function startBeg() {
     'background-image': "url('./beg.png')",
     'background-size': 'cover',
   })
-  let money = 1000
   let cycle = 1
   let input = 0
-
-  let setMoney = function (num) {
-    num ? (money += num) : ''
-    $('#money').html(priceToString(money))
-  }
   setMoney()
 
   let cycleBey = setInterval(function () {
@@ -84,23 +78,7 @@ function startBeg() {
     let arr = [
       [0, 0, 0, 0, 0, 0, 0, 0, 100, 500],
       [0, 0, 0, 0, 0, 0, 0, 0, 500, 1000, 2000, 3000, 5000],
-      [
-        100,
-        100,
-        100,
-        100,
-        100,
-        100,
-        100,
-        100,
-        100,
-        100,
-        500,
-        1000,
-        10000,
-        50000,
-        'F',
-      ],
+      [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 500, 1000, 10000, 10000, 'F'],
     ]
     let loc = arr[input - 1][Math.floor(Math.random() * arr[input - 1].length)]
     console.log(loc)
@@ -123,12 +101,21 @@ function startBeg() {
     let income = begging(input)
     let result
     let fail = ''
-    for (let i = 0; i < Math.ceil(Math.random() * 3); i++) fail += '.'
-    income == 'F'
-      ? (window.alert('건달을 만나 모두 빼앗겼습니다'),
-        (income = money * -1),
-        (result = '파산'))
-      : (result = income > 0 ? '구걸 성공' : '실패' + fail)
+    for (let i = 0; i < Math.ceil(Math.random() * 3); i++)
+      fail += '.'
+    if(income == 'F'){
+      if(money < 0){
+        window.alert('건달이 허탕을 칩니다.')
+        income = 0
+        result = 'NICE!'
+      }else{
+        window.alert('건달을 만나 모두 빼앗겼습니다')
+        income = money * -1
+        result = '파산'
+      }
+    }else{
+      result = income > 0 ? '구걸 성공' : '실패' + fail
+    }
     if (input == 3 && income > 0) result = '떨어진' + income + '원 습득!'
 
     $('#beg-img').css({ 'background-image': "url('./beg.png')" })
@@ -162,7 +149,7 @@ function startRps() {
   let setMoney = function (num) {
     num ? (money += num) : ''
     $('#money').html(priceToString(money))
-    $('.poket').html(priceToString(money) + ' 원')
+    $('#poket').html(priceToString(money) + ' 원')
   }
 
   let setRate = function () {
@@ -377,7 +364,7 @@ function makeLottery() {
 function makeBeg() {
   const html =
     '<div class="text-md-center">\r\n' +
-    '            <h1 class="p-t-1">구걸하기</h1>\r\n' +
+    '            <h1 class="p-t-1">Begging</h1>\r\n' +
     '        </div>\r\n' +
     '        <hr>\r\n' +
     '        <div class="row justify-content-around">\r\n' +
@@ -413,7 +400,7 @@ function makeBeg() {
 function makeRps() {
   const html =
     '<div class="text-md-center">\r\n' +
-    '        <h1 class="p-t-1">가위 바위 보</h1>\r\n' +
+    '        <h1 class="p-t-1">Rock, Paper, Sicssors</h1>\r\n' +
     '      </div>\r\n' +
     '      <hr />\r\n' +
     '      <div class="row justify-content-around">\r\n' +

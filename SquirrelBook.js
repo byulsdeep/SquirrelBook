@@ -462,7 +462,7 @@ function makeBeg() {
     '            <div class="col-sm-6 col-md-4 col-md-offset-2">\r\n' +
     '                <img class="img-fluid p-a-1" id="beg-img" width="100%" height="100%">\r\n' +
     '            </div>\r\n' +
-    '            <div class="d-flex flex-column justify-content-around" style="width:100px">\r\n' +
+    '            <div class="d-flex flex-column justify-content-around">\r\n' +
     '                <h2 class="fs-3 text-center" id="result"></h2>\r\n' +
     '                <h2 class="fs-3 text-center" id="income"></h2>\r\n' +
     '            </div>\r\n' +

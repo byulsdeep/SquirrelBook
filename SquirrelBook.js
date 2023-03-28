@@ -38,7 +38,6 @@ let setMoney = function (num) {
   $('#poket').html(priceToString(money) + ' 원')
 }
 
-
 function startClock() {
   const clock = setInterval(() => {
     const date = new Date()
@@ -78,7 +77,33 @@ function startBeg() {
     let arr = [
       [0, 0, 0, 0, 0, 0, 0, 0, 100, 500],
       [0, 0, 0, 0, 0, 0, 0, 0, 500, 1000, 2000, 3000, 5000],
-      [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 500, 1000, 10000, 10000, 'F'],
+      [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        500,
+        1000,
+        10000,
+        10000,
+        'F',
+      ],
     ]
     let loc = arr[input - 1][Math.floor(Math.random() * arr[input - 1].length)]
     console.log(loc)
@@ -101,19 +126,18 @@ function startBeg() {
     let income = begging(input)
     let result
     let fail = ''
-    for (let i = 0; i < Math.ceil(Math.random() * 3); i++)
-      fail += '.'
-    if(income == 'F'){
-      if(money < 0){
+    for (let i = 0; i < Math.ceil(Math.random() * 3); i++) fail += '.'
+    if (income == 'F') {
+      if (money < 0) {
         window.alert('건달이 허탕을 칩니다.')
         income = 0
         result = 'NICE!'
-      }else{
+      } else {
         window.alert('건달을 만나 모두 빼앗겼습니다')
         income = money * -1
         result = '파산'
       }
-    }else{
+    } else {
       result = income > 0 ? '구걸 성공' : '실패' + fail
     }
     if (input == 3 && income > 0) result = '떨어진' + income + '원 습득!'
@@ -313,6 +337,14 @@ function makeSearchResult() {
 }
 function makeLottery() {
   const html =
+// danbisan css
+    '<link rel="stylesheet" href="./styles.css" />' +
+  // bootstrap 
+    '    <link\r\n' +
+    '      rel="stylesheet"\r\n' +
+    '      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"\r\n' +
+    '      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"\r\n' +
+    '      crossorigin="anonymous" />' +
     '<div id="wrap">\r\n' +
     "      <header><h1>lotto 추첨</h1><h1 class='money'>0</h1></header>\r\n" +
     '      <hr />\r\n' +
@@ -358,7 +390,7 @@ function makeLottery() {
     '        </div>\r\n' +
     '        <h4 class="prize">두근두근</h4>\r\n' +
     '      </main>\r\n' +
-    '    </div><link rel="stylesheet" href="styles.css" />'
+    '    </div>'
   return html
 }
 function makeBeg() {

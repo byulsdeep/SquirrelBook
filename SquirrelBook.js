@@ -13,7 +13,7 @@ $(() => {
 })
 function init() {
   // $('section').append(makeContact())
-  $('#home').on('click', moveHome)
+  $('.home').on('click', moveHome)
   $('.contacts').on('click', moveContacts)
   $('.friends').on('click', moveFriendlist)
   $('.lottery').on('click', moveLottery)
@@ -46,7 +46,13 @@ function startClock() {
         ':' +
         date.getMinutes().toString().padStart(2, '0') +
         ':' +
-        date.getSeconds().toString().padStart(2, '0')
+        date.getSeconds().toString().padStart(2, '0') +
+        ' || ' +
+        date.getFullYear() +
+        '.' +
+        date.getMonth() +
+        '.' +
+        date.getDate()
     )
   }, 1000)
 }
@@ -243,12 +249,19 @@ function startRps() {
 }
 function moveSong() {
   $('section').html($($(this).children()[0]).clone().css('display', 'initial'))
+  $('section').css({ height: 'initial', 'overflow-y': 'initial' })
 }
 function moveSearch() {
   $('section').html(makeSearchResult())
+  $('section').css({ height: 'calc(100vh - 200px)', 'overflow-y': 'scroll' })
 }
 function moveContacts() {
   $('section').html(makeContact())
+  $('section').css({ height: 'calc(100vh - 200px)', 'overflow-y': 'scroll' })
+  $('section').removeClass()
+  $('section').addClass('col-sm-9')
+  $('aside').css('display', 'initial')
+  // style="height: calc(100vh - 200px); overflow-y: scroll"
 }
 function moveLottery() {
   $('body').html(makeLottery())
@@ -256,17 +269,33 @@ function moveLottery() {
 }
 function moveRps() {
   $('section').html(makeRps())
+  $('section').css({ height: 'initial', 'overflow-y': 'initial' })
+  $('section').removeClass()
+  $('section').addClass('col-sm')
+  $('aside').css('display', 'none')
   startRps()
 }
 function moveBeg() {
   $('section').html(makeBeg())
+  $('aside').css('display', 'none')
+  $('section').removeClass()
+  $('section').addClass('col-sm')
+  $('section').css({ height: 'initial', 'overflow-y': 'initial' })
   startBeg()
 }
 function moveHome() {
   $('section').html(makeCarousel())
+  $('section').css({ height: 'initial', 'overflow-y': 'initial' })
+  $('section').removeClass()
+  $('section').addClass('col-sm-9')
+  $('aside').css('display', 'initial')
 }
 function moveFriendlist() {
   $('section').html(makeFriendlist())
+  $('section').css({ height: 'calc(100vh - 200px)', 'overflow-y': 'scroll' })
+  $('section').removeClass()
+  $('section').addClass('col-sm-9')
+  $('aside').css('display', 'initial')
 }
 function makeSearchResult() {
   const table = $('<table>').addClass('table')
@@ -337,9 +366,9 @@ function makeSearchResult() {
 }
 function makeLottery() {
   const html =
-// danbisan css
+    // danbisan css
     '<link rel="stylesheet" href="./styles.css" />' +
-  // bootstrap 
+    // bootstrap
     '    <link\r\n' +
     '      rel="stylesheet"\r\n' +
     '      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"\r\n' +
@@ -506,7 +535,96 @@ function makeRps() {
   return html
 }
 function makeCarousel() {
-  return null
+  return (
+    '<div\r\n' +
+    '            id="carouselExampleFade"\r\n' +
+    '            class="carousel slide carousel-fade"\r\n' +
+    '            data-ride="carousel">\r\n' +
+    '            <ol class="carousel-indicators">\r\n' +
+    '              <li\r\n' +
+    '                data-target="#carouselExampleCaptions"\r\n' +
+    '                data-slide-to="0"\r\n' +
+    '                class="active"></li>\r\n' +
+    '              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>\r\n' +
+    '              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>\r\n' +
+    '              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>\r\n' +
+    '            </ol>\r\n' +
+    '            <div class="carousel-inner">\r\n' +
+    '              <div\r\n' +
+    '                style="max-width: 730px; max-height: 480px"\r\n' +
+    '                class="carousel-item active">\r\n' +
+    '                <img\r\n' +
+    '                  style="filter: brightness(80%)"\r\n' +
+    '                  src="purple.png"\r\n' +
+    '                  class="contacts d-block w-100"\r\n' +
+    '                  alt="..." />\r\n' +
+    '                <div class="carousel-caption d-none d-md-block">\r\n' +
+    '                  <h1>SquirrelBook으로 친구 찾기</h1>\r\n' +
+    '                  <h5>지금 바로 친구 추가를 해보세요</h5>\r\n' +
+    '                </div>\r\n' +
+    '              </div>\r\n' +
+    '              <div\r\n' +
+    '                style="max-width: 730px; max-height: 480px"\r\n' +
+    '                class="carousel-item">\r\n' +
+    '                <img\r\n' +
+    '                  style="filter: brightness(80%)"\r\n' +
+    '                  src="rps.jpg"\r\n' +
+    '                  class="rps d-block w-100"\r\n' +
+    '                  alt="..." />\r\n' +
+    '                <div class="carousel-caption d-none d-md-block">\r\n' +
+    '                  <h1>가위 바위 보</h1>\r\n' +
+    '                  <h5>컴퓨터를 이겨라</h5>\r\n' +
+    '                </div>\r\n' +
+    '              </div>\r\n' +
+    '              <div\r\n' +
+    '                style="max-width: 730px; max-height: 480px"\r\n' +
+    '                class="carousel-item">\r\n' +
+    '                <img\r\n' +
+    '                  style="filter: brightness(80%)"\r\n' +
+    '                  src="lottery.jpg"\r\n' +
+    '                  class="lottery d-block w-100"\r\n' +
+    '                  alt="..." />\r\n' +
+    '                <div class="carousel-caption d-none d-md-block">\r\n' +
+    '                  <h1>로또</h1>\r\n' +
+    '                  <h5>당신의 행운을 시험해보세요</h5>\r\n' +
+    '                </div>\r\n' +
+    '              </div>\r\n' +
+    '              <div\r\n' +
+    '                style="max-width: 730px; max-height: 480px"\r\n' +
+    '                class="carousel-item">\r\n' +
+    '                <img\r\n' +
+    '                  style="filter: brightness(80%)"\r\n' +
+    '                  src="beg.jpg"\r\n' +
+    '                  class="beg d-block w-100"\r\n' +
+    '                  alt="..." />\r\n' +
+    '                <div class="carousel-caption d-none d-md-block">\r\n' +
+    '                  <h1>구걸</h1>\r\n' +
+    '                  <h5>인생을 바꿔보세요!</h5>\r\n' +
+    '                </div>\r\n' +
+    '              </div>\r\n' +
+    '            </div>\r\n' +
+    '            <button\r\n' +
+    '              class="carousel-control-prev"\r\n' +
+    '              type="button"\r\n' +
+    '              data-target="#carouselExampleFade"\r\n' +
+    '              data-slide="prev">\r\n' +
+    '              <span\r\n' +
+    '                class="carousel-control-prev-icon"\r\n' +
+    '                aria-hidden="true"></span>\r\n' +
+    '              <span class="sr-only">Previous</span>\r\n' +
+    '            </button>\r\n' +
+    '            <button\r\n' +
+    '              class="carousel-control-next"\r\n' +
+    '              type="button"\r\n' +
+    '              data-target="#carouselExampleFade"\r\n' +
+    '              data-slide="next">\r\n' +
+    '              <span\r\n' +
+    '                class="carousel-control-next-icon"\r\n' +
+    '                aria-hidden="true"></span>\r\n' +
+    '              <span class="sr-only">Next</span>\r\n' +
+    '            </button>\r\n' +
+    '          </div>'
+  )
 }
 function makeFriendlist() {
   const table = $('<table>').addClass('table')

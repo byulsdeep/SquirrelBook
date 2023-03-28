@@ -1,0 +1,325 @@
+/*초기화 코드*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/*초기화 코드*/
+
+  #wrap {
+    max-width: 1000px;
+    width: 100%;
+    height: 750px;
+    margin: 5px auto;
+  }
+
+  header{
+    display: flex !important;
+    justify-content: space-between;
+  }
+  
+  header h1 {
+    padding-top: 30px;
+    padding-left: 15px;
+    font-size: 50px;
+    color: black;
+    font-weight: bold;
+  }
+  
+  nav {
+    width: 100%;
+    height: 8%;
+    margin: 0 auto;
+    background-color: white;
+    color: black;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  ul {
+    width: 100%;
+    height: 10%;
+  }
+  
+  li {
+    float: left;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    line-height: 64px;
+  }
+  
+  main {
+    width: 100%;
+    height: 60%;
+    /* display: flex; */
+  }
+  
+  article {
+    width: 100%;
+    height:50%;
+    background-color: whitesmoke;
+
+    overflow: hidden;
+  }
+
+  .win {
+    display: flex;
+    float: left;
+    width: 75%;
+    height: 50%;
+    padding: 5px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    /* border: 1px solid gray;
+    border-radius:  10px; */
+}
+.win > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    margin: 0 10px;
+    border-radius: 50%;
+    font-size: 30px;
+    color: white;
+    font-weight: 900;
+}
+
+.win_bonus {
+    margin-top: 10px;
+    float: right;
+    display: flex;
+    width: 13%;
+    height: 50%;
+    padding: 5px;
+    box-sizing: border-box;
+    /* border: 1px solid gray;
+    border-radius:  10px; */
+}
+
+.win_bonus > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 10px;
+    border-radius: 50%;
+    font-size: 30px;
+    color: white;
+    font-weight: 900;
+}
+
+  aside {
+    width: 100%;
+    height: 50%;
+    background-color: whitesmoke;
+    flex-direction: column;
+    justify-content: space-evenly;
+    display: flex;
+    align-items: center;
+    font-size:100px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+  }
+  .result {
+    display: flex;
+    float: left;
+    width: 75%;
+    height: 50%;
+    padding: 5px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    /* border: 1px solid gray;
+    border-radius:  10px; */
+}
+.result > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    margin: 0 10px;
+    border-radius: 50%;
+    font-size: 30px;
+    color: white;
+    font-weight: 900;
+}
+.bonus {
+    margin-top: 10px;
+    float: right;
+    display: flex;
+    width: 13%;
+    height: 50%;
+    padding: 5px;
+    box-sizing: border-box;
+    /* border: 1px solid gray;
+    border-radius:  10px; */
+}
+
+.bonus > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 10px;
+    border-radius: 50%;
+    font-size: 30px;
+    color: white;
+    font-weight: 900;
+}
+.btn_wrap{
+  display: flex;
+  height: 70px;
+  justify-content: space-between;
+}
+
+  button{
+    width: 15%;
+    font-size: 40px;
+    margin-left: 20px;
+    color: white;
+    background-color: rgb(10, 133, 126);
+    border: none;
+    border-radius: 10px;
+}
+button:active, button:focus{
+    outline: none;
+}
+  h4{
+    font-size: 20px;
+    color: white;
+    padding: 20px;
+    background-color:rgb(34, 125, 189);
+  }
+  span{
+    text-align: center;
+    margin-left: 30px;
+    line-height: 114px;
+  }
+  .prize{
+    display: flex;
+    justify-content: space-between;
+  }
+  .prize>p{
+    margin: 0;
+  }

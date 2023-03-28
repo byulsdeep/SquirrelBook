@@ -1,0 +1,21 @@
+#div-clock {
+    margin-right: 250px;
+    border: 1px;
+    margin-top: 10px;
+    padding: 1px;
+    box-sizing : border-box;
+    background-color: rgb(0, 123, 255);
+    border-radius: 10px 10px;
+    font-size: 25px;
+    color: white;
+    float: left;
+    text-align: center;
+    font-family: establishRetrosansOTF;
+    line-height: 30px;
+}
+@font-face {
+    font-family: 'establishRetrosansOTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

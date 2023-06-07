@@ -49,7 +49,7 @@ function startClock() {
         ' || ' +
         date.getFullYear() +
         '.' +
-        date.getMonth() +
+        (date.getMonth() + 1) +
         '.' +
         date.getDate()
     )
